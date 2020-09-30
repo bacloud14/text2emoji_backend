@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_combackloudtext2emoji" default="compile.module.combackloudtext2emoji">
+  <dirname property="module.combackloudtext2emoji.basedir" file="${ant.file.module_combackloudtext2emoji}"/>
+  
+  <property name="module.jdk.home.combackloudtext2emoji" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.combackloudtext2emoji" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.combackloudtext2emoji" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.combackloudtext2emoji" value="-encoding UTF-8 -source 5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="combackloudtext2emoji.output.dir" value="${module.combackloudtext2emoji.basedir}/target/classes"/>
+  <property name="combackloudtext2emoji.testoutput.dir" value="${module.combackloudtext2emoji.basedir}/target/test-classes"/>
+  
+  <path id="combackloudtext2emoji.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="combackloudtext2emoji.module.production.classpath">
+    <path refid="${module.jdk.classpath.combackloudtext2emoji}"/>
+    <pathelement location="${basedir}/lib/slf4j-simple-1.6.2.jar"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-core:0.9.1.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:nearestneighbor-core:0.9.1.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-modelimport:0.9.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco:javacpp:1.3.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5-platform:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-ppc64le:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:macosx-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.12.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-nn:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-common:0.9.1.classpath"/>
+    <path refid="library.maven:_com.github.stephenc.findbugs:findbugs-annotations:1.3.9-1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math3:3.4.1.classpath"/>
+    <path refid="library.maven:_commons-io:commons-io:2.4.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-compress:1.8.classpath"/>
+    <path refid="library.maven:_org.tukaani:xz:1.5.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.4.classpath"/>
+    <path refid="library.maven:_org.nd4j:jackson:0.9.1.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.12.classpath"/>
+    <path refid="library.maven:_org.codehaus.woodstox:stax2-api:3.1.4.classpath"/>
+    <path refid="library.maven:_joda-time:joda-time:2.2.classpath"/>
+    <path refid="library.maven:_org.projectlombok:lombok:1.16.16.classpath"/>
+    <path refid="library.maven:_org.datavec:datavec-api:0.9.1.classpath"/>
+    <path refid="library.maven:_org.freemarker:freemarker:2.3.23.classpath"/>
+    <path refid="library.maven:_com.clearspring.analytics:stream:2.7.0.classpath"/>
+    <path refid="library.maven:_it.unimi.dsi:fastutil:6.5.7.classpath"/>
+    <path refid="library.maven:_net.sf.opencsv:opencsv:2.3.classpath"/>
+    <path refid="library.maven:_org.datavec:datavec-data-image:0.9.1.classpath"/>
+    <path refid="library.maven:_com.github.jai-imageio:jai-imageio-core:1.3.0.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-jpeg:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-core:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-metadata:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-lang:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-io:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-image:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-tiff:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-psd:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-bmp:3.1.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco:javacv:1.3.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:ffmpeg:3.2.1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:flycapture:2.9.3.43-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libdc1394:2.2.4-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libfreenect:0.5.3-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libfreenect2:0.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:librealsense:1.9.6-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:videoinput:0.200-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:artoolkitplus:2.3.1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:flandmark:1.07-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv-platform:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:android-arm:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:android-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-armhf:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-ppc64le:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:macosx-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica-platform:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-arm:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-armhf:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-ppc64le:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:macosx-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-ui-components:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.10.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-nlp:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native-api:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-jackson:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-base64:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-net:commons-net:3.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-api:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-buffer:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-context:0.9.1.classpath"/>
+    <path refid="library.maven:_net.ericaro:neoitertools:1.0.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+    <path refid="library.maven:_org.reflections:reflections:0.9.10.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.19.0-ga.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:annotations:2.0.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native-platform:0.9.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas-platform:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:android-arm:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:android-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-armhf:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-ppc64le:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:macosx-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:android-arm:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:android-x86:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:linux-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:macosx-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:windows-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:linux-ppc64le:0.9.1.classpath"/>
+  </path>
+  
+  <path id="combackloudtext2emoji.runtime.production.module.classpath">
+    <pathelement location="${combackloudtext2emoji.output.dir}"/>
+    <pathelement location="${basedir}/lib/slf4j-simple-1.6.2.jar"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-core:0.9.1.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:nearestneighbor-core:0.9.1.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-modelimport:0.9.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco:javacpp:1.3.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5-platform:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-ppc64le:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:macosx-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.12.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-nn:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-common:0.9.1.classpath"/>
+    <path refid="library.maven:_com.github.stephenc.findbugs:findbugs-annotations:1.3.9-1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math3:3.4.1.classpath"/>
+    <path refid="library.maven:_commons-io:commons-io:2.4.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-compress:1.8.classpath"/>
+    <path refid="library.maven:_org.tukaani:xz:1.5.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.4.classpath"/>
+    <path refid="library.maven:_org.nd4j:jackson:0.9.1.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.12.classpath"/>
+    <path refid="library.maven:_org.codehaus.woodstox:stax2-api:3.1.4.classpath"/>
+    <path refid="library.maven:_joda-time:joda-time:2.2.classpath"/>
+    <path refid="library.maven:_org.projectlombok:lombok:1.16.16.classpath"/>
+    <path refid="library.maven:_org.datavec:datavec-api:0.9.1.classpath"/>
+    <path refid="library.maven:_org.freemarker:freemarker:2.3.23.classpath"/>
+    <path refid="library.maven:_com.clearspring.analytics:stream:2.7.0.classpath"/>
+    <path refid="library.maven:_it.unimi.dsi:fastutil:6.5.7.classpath"/>
+    <path refid="library.maven:_net.sf.opencsv:opencsv:2.3.classpath"/>
+    <path refid="library.maven:_org.datavec:datavec-data-image:0.9.1.classpath"/>
+    <path refid="library.maven:_com.github.jai-imageio:jai-imageio-core:1.3.0.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-jpeg:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-core:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-metadata:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-lang:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-io:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-image:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-tiff:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-psd:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-bmp:3.1.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco:javacv:1.3.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:ffmpeg:3.2.1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:flycapture:2.9.3.43-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libdc1394:2.2.4-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libfreenect:0.5.3-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libfreenect2:0.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:librealsense:1.9.6-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:videoinput:0.200-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:artoolkitplus:2.3.1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:flandmark:1.07-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv-platform:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:android-arm:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:android-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-armhf:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-ppc64le:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:macosx-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica-platform:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-arm:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-armhf:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-ppc64le:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:macosx-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-ui-components:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.10.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-nlp:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native-api:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-jackson:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-base64:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-net:commons-net:3.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-api:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-buffer:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-context:0.9.1.classpath"/>
+    <path refid="library.maven:_net.ericaro:neoitertools:1.0.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+    <path refid="library.maven:_org.reflections:reflections:0.9.10.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.19.0-ga.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:annotations:2.0.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native-platform:0.9.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas-platform:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:android-arm:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:android-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-armhf:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-ppc64le:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:macosx-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:android-arm:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:android-x86:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:linux-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:macosx-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:windows-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:linux-ppc64le:0.9.1.classpath"/>
+  </path>
+  
+  <path id="combackloudtext2emoji.module.classpath">
+    <path refid="${module.jdk.classpath.combackloudtext2emoji}"/>
+    <pathelement location="${combackloudtext2emoji.output.dir}"/>
+    <pathelement location="${basedir}/lib/slf4j-simple-1.6.2.jar"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-core:0.9.1.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:nearestneighbor-core:0.9.1.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-modelimport:0.9.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco:javacpp:1.3.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5-platform:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-ppc64le:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:macosx-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.12.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-nn:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-common:0.9.1.classpath"/>
+    <path refid="library.maven:_com.github.stephenc.findbugs:findbugs-annotations:1.3.9-1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math3:3.4.1.classpath"/>
+    <path refid="library.maven:_commons-io:commons-io:2.4.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-compress:1.8.classpath"/>
+    <path refid="library.maven:_org.tukaani:xz:1.5.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.4.classpath"/>
+    <path refid="library.maven:_org.nd4j:jackson:0.9.1.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.12.classpath"/>
+    <path refid="library.maven:_org.codehaus.woodstox:stax2-api:3.1.4.classpath"/>
+    <path refid="library.maven:_joda-time:joda-time:2.2.classpath"/>
+    <path refid="library.maven:_org.projectlombok:lombok:1.16.16.classpath"/>
+    <path refid="library.maven:_org.datavec:datavec-api:0.9.1.classpath"/>
+    <path refid="library.maven:_org.freemarker:freemarker:2.3.23.classpath"/>
+    <path refid="library.maven:_com.clearspring.analytics:stream:2.7.0.classpath"/>
+    <path refid="library.maven:_it.unimi.dsi:fastutil:6.5.7.classpath"/>
+    <path refid="library.maven:_net.sf.opencsv:opencsv:2.3.classpath"/>
+    <path refid="library.maven:_org.datavec:datavec-data-image:0.9.1.classpath"/>
+    <path refid="library.maven:_com.github.jai-imageio:jai-imageio-core:1.3.0.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-jpeg:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-core:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-metadata:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-lang:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-io:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-image:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-tiff:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-psd:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-bmp:3.1.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco:javacv:1.3.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:ffmpeg:3.2.1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:flycapture:2.9.3.43-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libdc1394:2.2.4-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libfreenect:0.5.3-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libfreenect2:0.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:librealsense:1.9.6-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:videoinput:0.200-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:artoolkitplus:2.3.1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:flandmark:1.07-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv-platform:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:android-arm:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:android-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-armhf:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-ppc64le:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:macosx-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica-platform:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-arm:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-armhf:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-ppc64le:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:macosx-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-ui-components:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.10.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-nlp:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native-api:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-jackson:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-base64:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-net:commons-net:3.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-api:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-buffer:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-context:0.9.1.classpath"/>
+    <path refid="library.maven:_net.ericaro:neoitertools:1.0.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+    <path refid="library.maven:_org.reflections:reflections:0.9.10.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.19.0-ga.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:annotations:2.0.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native-platform:0.9.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas-platform:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:android-arm:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:android-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-armhf:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-ppc64le:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:macosx-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:android-arm:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:android-x86:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:linux-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:macosx-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:windows-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:linux-ppc64le:0.9.1.classpath"/>
+  </path>
+  
+  <path id="combackloudtext2emoji.runtime.module.classpath">
+    <pathelement location="${combackloudtext2emoji.testoutput.dir}"/>
+    <pathelement location="${combackloudtext2emoji.output.dir}"/>
+    <pathelement location="${basedir}/lib/slf4j-simple-1.6.2.jar"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-core:0.9.1.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:nearestneighbor-core:0.9.1.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-modelimport:0.9.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco:javacpp:1.3.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5-platform:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-ppc64le:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:macosx-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86_64:1.10.0-patch1-1.3.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.12.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-nn:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-common:0.9.1.classpath"/>
+    <path refid="library.maven:_com.github.stephenc.findbugs:findbugs-annotations:1.3.9-1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math3:3.4.1.classpath"/>
+    <path refid="library.maven:_commons-io:commons-io:2.4.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-compress:1.8.classpath"/>
+    <path refid="library.maven:_org.tukaani:xz:1.5.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.4.classpath"/>
+    <path refid="library.maven:_org.nd4j:jackson:0.9.1.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.12.classpath"/>
+    <path refid="library.maven:_org.codehaus.woodstox:stax2-api:3.1.4.classpath"/>
+    <path refid="library.maven:_joda-time:joda-time:2.2.classpath"/>
+    <path refid="library.maven:_org.projectlombok:lombok:1.16.16.classpath"/>
+    <path refid="library.maven:_org.datavec:datavec-api:0.9.1.classpath"/>
+    <path refid="library.maven:_org.freemarker:freemarker:2.3.23.classpath"/>
+    <path refid="library.maven:_com.clearspring.analytics:stream:2.7.0.classpath"/>
+    <path refid="library.maven:_it.unimi.dsi:fastutil:6.5.7.classpath"/>
+    <path refid="library.maven:_net.sf.opencsv:opencsv:2.3.classpath"/>
+    <path refid="library.maven:_org.datavec:datavec-data-image:0.9.1.classpath"/>
+    <path refid="library.maven:_com.github.jai-imageio:jai-imageio-core:1.3.0.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-jpeg:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-core:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-metadata:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-lang:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-io:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.common:common-image:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-tiff:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-psd:3.1.1.classpath"/>
+    <path refid="library.maven:_com.twelvemonkeys.imageio:imageio-bmp:3.1.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco:javacv:1.3.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:ffmpeg:3.2.1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:flycapture:2.9.3.43-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libdc1394:2.2.4-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libfreenect:0.5.3-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:libfreenect2:0.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:librealsense:1.9.6-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:videoinput:0.200-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:artoolkitplus:2.3.1-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:flandmark:1.07-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv-platform:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:android-arm:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:android-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-armhf:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-ppc64le:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:macosx-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86_64:3.2.0-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica-platform:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-arm:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-armhf:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-ppc64le:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:macosx-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86_64:1.73-1.3.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-ui-components:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.10.classpath"/>
+    <path refid="library.maven:_org.deeplearning4j:deeplearning4j-nlp:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native-api:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-jackson:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-base64:0.9.1.classpath"/>
+    <path refid="library.maven:_commons-net:commons-net:3.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-api:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-buffer:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-context:0.9.1.classpath"/>
+    <path refid="library.maven:_net.ericaro:neoitertools:1.0.0.classpath"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+    <path refid="library.maven:_org.reflections:reflections:0.9.10.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.19.0-ga.classpath"/>
+    <path refid="library.maven:_com.google.code.findbugs:annotations:2.0.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native-platform:0.9.1.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas-platform:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:android-arm:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:android-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-armhf:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-ppc64le:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:macosx-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86_64:0.2.19-1.3.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:android-arm:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:android-x86:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:linux-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:macosx-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:windows-x86_64:0.9.1.classpath"/>
+    <path refid="library.maven:_org.nd4j:nd4j-native:linux-ppc64le:0.9.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.combackloudtext2emoji">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.combackloudtext2emoji">
+    <patternset refid="excluded.from.module.combackloudtext2emoji"/>
+  </patternset>
+  
+  <path id="combackloudtext2emoji.module.sourcepath">
+    <dirset dir="${module.combackloudtext2emoji.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="combackloudtext2emoji.module.test.sourcepath">
+    <dirset dir="${module.combackloudtext2emoji.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.combackloudtext2emoji" depends="compile.module.combackloudtext2emoji.production,compile.module.combackloudtext2emoji.tests" description="Compile module combackloudtext2emoji"/>
+  
+  <target name="compile.module.combackloudtext2emoji.production" depends="register.custom.compilers" description="Compile module combackloudtext2emoji; production classes">
+    <mkdir dir="${combackloudtext2emoji.output.dir}"/>
+    <javac2 destdir="${combackloudtext2emoji.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.combackloudtext2emoji}/javac">
+      <compilerarg line="${compiler.args.combackloudtext2emoji}"/>
+      <bootclasspath refid="combackloudtext2emoji.module.bootclasspath"/>
+      <classpath refid="combackloudtext2emoji.module.production.classpath"/>
+      <src refid="combackloudtext2emoji.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.combackloudtext2emoji"/>
+    </javac2>
+    
+    <copy todir="${combackloudtext2emoji.output.dir}">
+      <fileset dir="${module.combackloudtext2emoji.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.combackloudtext2emoji.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.combackloudtext2emoji.tests" depends="register.custom.compilers,compile.module.combackloudtext2emoji.production" description="compile module combackloudtext2emoji; test classes" unless="skip.tests">
+    <mkdir dir="${combackloudtext2emoji.testoutput.dir}"/>
+    <javac2 destdir="${combackloudtext2emoji.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.combackloudtext2emoji}/javac">
+      <compilerarg line="${compiler.args.combackloudtext2emoji}"/>
+      <bootclasspath refid="combackloudtext2emoji.module.bootclasspath"/>
+      <classpath refid="combackloudtext2emoji.module.classpath"/>
+      <src refid="combackloudtext2emoji.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.combackloudtext2emoji"/>
+    </javac2>
+    
+    <copy todir="${combackloudtext2emoji.testoutput.dir}">
+      <fileset dir="${module.combackloudtext2emoji.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.combackloudtext2emoji" description="cleanup module">
+    <delete dir="${combackloudtext2emoji.output.dir}"/>
+    <delete dir="${combackloudtext2emoji.testoutput.dir}"/>
+  </target>
+</project>

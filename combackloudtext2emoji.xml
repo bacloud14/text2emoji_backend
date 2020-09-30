@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="combackloudtext2emoji" default="all">
+  
+  
+  <property file="combackloudtext2emoji.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.11" value="${jdk.home.11}/bin"/>
+  <path id="jdk.classpath.11">
+    <fileset dir="${jdk.home.11}">
+      <include name="../jdk-11.0.1!/java.base"/>
+      <include name="../jdk-11.0.1!/java.compiler"/>
+      <include name="../jdk-11.0.1!/java.datatransfer"/>
+      <include name="../jdk-11.0.1!/java.desktop"/>
+      <include name="../jdk-11.0.1!/java.instrument"/>
+      <include name="../jdk-11.0.1!/java.logging"/>
+      <include name="../jdk-11.0.1!/java.management"/>
+      <include name="../jdk-11.0.1!/java.management.rmi"/>
+      <include name="../jdk-11.0.1!/java.naming"/>
+      <include name="../jdk-11.0.1!/java.net.http"/>
+      <include name="../jdk-11.0.1!/java.prefs"/>
+      <include name="../jdk-11.0.1!/java.rmi"/>
+      <include name="../jdk-11.0.1!/java.scripting"/>
+      <include name="../jdk-11.0.1!/java.se"/>
+      <include name="../jdk-11.0.1!/java.security.jgss"/>
+      <include name="../jdk-11.0.1!/java.security.sasl"/>
+      <include name="../jdk-11.0.1!/java.smartcardio"/>
+      <include name="../jdk-11.0.1!/java.sql"/>
+      <include name="../jdk-11.0.1!/java.sql.rowset"/>
+      <include name="../jdk-11.0.1!/java.transaction.xa"/>
+      <include name="../jdk-11.0.1!/java.xml"/>
+      <include name="../jdk-11.0.1!/java.xml.crypto"/>
+      <include name="../jdk-11.0.1!/jdk.accessibility"/>
+      <include name="../jdk-11.0.1!/jdk.aot"/>
+      <include name="../jdk-11.0.1!/jdk.attach"/>
+      <include name="../jdk-11.0.1!/jdk.charsets"/>
+      <include name="../jdk-11.0.1!/jdk.compiler"/>
+      <include name="../jdk-11.0.1!/jdk.crypto.cryptoki"/>
+      <include name="../jdk-11.0.1!/jdk.crypto.ec"/>
+      <include name="../jdk-11.0.1!/jdk.dynalink"/>
+      <include name="../jdk-11.0.1!/jdk.editpad"/>
+      <include name="../jdk-11.0.1!/jdk.hotspot.agent"/>
+      <include name="../jdk-11.0.1!/jdk.httpserver"/>
+      <include name="../jdk-11.0.1!/jdk.internal.ed"/>
+      <include name="../jdk-11.0.1!/jdk.internal.jvmstat"/>
+      <include name="../jdk-11.0.1!/jdk.internal.le"/>
+      <include name="../jdk-11.0.1!/jdk.internal.opt"/>
+      <include name="../jdk-11.0.1!/jdk.internal.vm.ci"/>
+      <include name="../jdk-11.0.1!/jdk.internal.vm.compiler"/>
+      <include name="../jdk-11.0.1!/jdk.internal.vm.compiler.management"/>
+      <include name="../jdk-11.0.1!/jdk.jartool"/>
+      <include name="../jdk-11.0.1!/jdk.javadoc"/>
+      <include name="../jdk-11.0.1!/jdk.jcmd"/>
+      <include name="../jdk-11.0.1!/jdk.jconsole"/>
+      <include name="../jdk-11.0.1!/jdk.jdeps"/>
+      <include name="../jdk-11.0.1!/jdk.jdi"/>
+      <include name="../jdk-11.0.1!/jdk.jdwp.agent"/>
+      <include name="../jdk-11.0.1!/jdk.jfr"/>
+      <include name="../jdk-11.0.1!/jdk.jlink"/>
+      <include name="../jdk-11.0.1!/jdk.jshell"/>
+      <include name="../jdk-11.0.1!/jdk.jsobject"/>
+      <include name="../jdk-11.0.1!/jdk.jstatd"/>
+      <include name="../jdk-11.0.1!/jdk.localedata"/>
+      <include name="../jdk-11.0.1!/jdk.management"/>
+      <include name="../jdk-11.0.1!/jdk.management.agent"/>
+      <include name="../jdk-11.0.1!/jdk.management.jfr"/>
+      <include name="../jdk-11.0.1!/jdk.naming.dns"/>
+      <include name="../jdk-11.0.1!/jdk.naming.rmi"/>
+      <include name="../jdk-11.0.1!/jdk.net"/>
+      <include name="../jdk-11.0.1!/jdk.pack"/>
+      <include name="../jdk-11.0.1!/jdk.rmic"/>
+      <include name="../jdk-11.0.1!/jdk.scripting.nashorn"/>
+      <include name="../jdk-11.0.1!/jdk.scripting.nashorn.shell"/>
+      <include name="../jdk-11.0.1!/jdk.sctp"/>
+      <include name="../jdk-11.0.1!/jdk.security.auth"/>
+      <include name="../jdk-11.0.1!/jdk.security.jgss"/>
+      <include name="../jdk-11.0.1!/jdk.unsupported"/>
+      <include name="../jdk-11.0.1!/jdk.unsupported.desktop"/>
+      <include name="../jdk-11.0.1!/jdk.xml.dom"/>
+      <include name="../jdk-11.0.1!/jdk.zipfs"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.11}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.11}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.11"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_com.clearspring.analytics:stream:2.7.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/clearspring/analytics/stream/2.7.0/stream-2.7.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.github.jai-imageio:jai-imageio-core:1.3.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/github/jai-imageio/jai-imageio-core/1.3.0/jai-imageio-core-1.3.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.github.stephenc.findbugs:findbugs-annotations:1.3.9-1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/github/stephenc/findbugs/findbugs-annotations/1.3.9-1/findbugs-annotations-1.3.9-1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.code.findbugs:annotations:2.0.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/code/findbugs/annotations/2.0.1/annotations-2.0.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.guava:guava:20.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/20.0/guava-20.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.twelvemonkeys.common:common-image:3.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/twelvemonkeys/common/common-image/3.1.1/common-image-3.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.twelvemonkeys.common:common-io:3.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/twelvemonkeys/common/common-io/3.1.1/common-io-3.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.twelvemonkeys.common:common-lang:3.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/twelvemonkeys/common/common-lang/3.1.1/common-lang-3.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.twelvemonkeys.imageio:imageio-bmp:3.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/twelvemonkeys/imageio/imageio-bmp/3.1.1/imageio-bmp-3.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.twelvemonkeys.imageio:imageio-core:3.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/twelvemonkeys/imageio/imageio-core/3.1.1/imageio-core-3.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.twelvemonkeys.imageio:imageio-jpeg:3.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/twelvemonkeys/imageio/imageio-jpeg/3.1.1/imageio-jpeg-3.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.twelvemonkeys.imageio:imageio-metadata:3.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/twelvemonkeys/imageio/imageio-metadata/3.1.1/imageio-metadata-3.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.twelvemonkeys.imageio:imageio-psd:3.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/twelvemonkeys/imageio/imageio-psd/3.1.1/imageio-psd-3.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.twelvemonkeys.imageio:imageio-tiff:3.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/twelvemonkeys/imageio/imageio-tiff/3.1.1/imageio-tiff-3.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-codec:commons-codec:1.10.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.10/commons-codec-1.10.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-io:commons-io:2.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-lang:commons-lang:2.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-net:commons-net:3.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-net/commons-net/3.1/commons-net-3.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_it.unimi.dsi:fastutil:6.5.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/it/unimi/dsi/fastutil/6.5.7/fastutil-6.5.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_joda-time:joda-time:2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/joda-time/joda-time/2.2/joda-time-2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_junit:junit:4.8.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/junit/junit/4.8.2/junit-4.8.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.ericaro:neoitertools:1.0.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/ericaro/neoitertools/1.0.0/neoitertools-1.0.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.sf.opencsv:opencsv:2.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-compress:1.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.8/commons-compress-1.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-lang3:3.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-math3:3.4.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.4.1/commons-math3-3.4.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:artoolkitplus:2.3.1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/artoolkitplus/2.3.1-1.3/artoolkitplus-2.3.1-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:ffmpeg:3.2.1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/ffmpeg/3.2.1-1.3/ffmpeg-3.2.1-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:flandmark:1.07-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/flandmark/1.07-1.3/flandmark-1.07-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:flycapture:2.9.3.43-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/flycapture/2.9.3.43-1.3/flycapture-2.9.3.43-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:hdf5-platform:1.10.0-patch1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/hdf5-platform/1.10.0-patch1-1.3/hdf5-platform-1.10.0-patch1-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:hdf5:1.10.0-patch1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/hdf5/1.10.0-patch1-1.3/hdf5-1.10.0-patch1-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-ppc64le:1.10.0-patch1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/hdf5/1.10.0-patch1-1.3/hdf5-1.10.0-patch1-1.3-linux-ppc64le.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86:1.10.0-patch1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/hdf5/1.10.0-patch1-1.3/hdf5-1.10.0-patch1-1.3-linux-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:hdf5:linux-x86_64:1.10.0-patch1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/hdf5/1.10.0-patch1-1.3/hdf5-1.10.0-patch1-1.3-linux-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:hdf5:macosx-x86_64:1.10.0-patch1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/hdf5/1.10.0-patch1-1.3/hdf5-1.10.0-patch1-1.3-macosx-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86:1.10.0-patch1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/hdf5/1.10.0-patch1-1.3/hdf5-1.10.0-patch1-1.3-windows-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:hdf5:windows-x86_64:1.10.0-patch1-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/hdf5/1.10.0-patch1-1.3/hdf5-1.10.0-patch1-1.3-windows-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica-platform:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica-platform/1.73-1.3/leptonica-platform-1.73-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-arm:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3-android-arm.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:android-x86:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3-android-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-armhf:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3-linux-armhf.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-ppc64le:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3-linux-ppc64le.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3-linux-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:linux-x86_64:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3-linux-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:macosx-x86_64:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3-macosx-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3-windows-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:leptonica:windows-x86_64:1.73-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/leptonica/1.73-1.3/leptonica-1.73-1.3-windows-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:libdc1394:2.2.4-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/libdc1394/2.2.4-1.3/libdc1394-2.2.4-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:libfreenect2:0.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/libfreenect2/0.2.0-1.3/libfreenect2-0.2.0-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:libfreenect:0.5.3-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/libfreenect/0.5.3-1.3/libfreenect-0.5.3-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:librealsense:1.9.6-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/librealsense/1.9.6-1.3/librealsense-1.9.6-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas-platform:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas-platform/0.2.19-1.3/openblas-platform-0.2.19-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:android-arm:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3-android-arm.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:android-x86:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3-android-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-armhf:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3-linux-armhf.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-ppc64le:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3-linux-ppc64le.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3-linux-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:linux-x86_64:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3-linux-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:macosx-x86_64:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3-macosx-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3-windows-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:openblas:windows-x86_64:0.2.19-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/openblas/0.2.19-1.3/openblas-0.2.19-1.3-windows-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv-platform:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv-platform/3.2.0-1.3/opencv-platform-3.2.0-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:android-arm:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3-android-arm.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:android-x86:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3-android-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-armhf:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3-linux-armhf.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-ppc64le:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3-linux-ppc64le.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3-linux-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:linux-x86_64:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3-linux-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:macosx-x86_64:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3-macosx-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3-windows-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:opencv:windows-x86_64:3.2.0-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/opencv/3.2.0-1.3/opencv-3.2.0-1.3-windows-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco.javacpp-presets:videoinput:0.200-1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp-presets/videoinput/0.200-1.3/videoinput-0.200-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco:javacpp:1.3.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacpp/1.3.3/javacpp-1.3.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bytedeco:javacv:1.3.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bytedeco/javacv/1.3.3/javacv-1.3.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.codehaus.woodstox:stax2-api:3.1.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/woodstox/stax2-api/3.1.4/stax2-api-3.1.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.datavec:datavec-api:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/datavec/datavec-api/0.9.1/datavec-api-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.datavec:datavec-data-image:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/datavec/datavec-data-image/0.9.1/datavec-data-image-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.deeplearning4j:deeplearning4j-core:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/deeplearning4j/deeplearning4j-core/0.9.1/deeplearning4j-core-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.deeplearning4j:deeplearning4j-modelimport:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/deeplearning4j/deeplearning4j-modelimport/0.9.1/deeplearning4j-modelimport-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.deeplearning4j:deeplearning4j-nlp:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/deeplearning4j/deeplearning4j-nlp/0.9.1/deeplearning4j-nlp-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.deeplearning4j:deeplearning4j-nn:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/deeplearning4j/deeplearning4j-nn/0.9.1/deeplearning4j-nn-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.deeplearning4j:deeplearning4j-ui-components:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/deeplearning4j/deeplearning4j-ui-components/0.9.1/deeplearning4j-ui-components-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.deeplearning4j:nearestneighbor-core:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/deeplearning4j/nearestneighbor-core/0.9.1/nearestneighbor-core-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.freemarker:freemarker:2.3.23.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/freemarker/freemarker/2.3.23/freemarker-2.3.23.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.javassist:javassist:3.19.0-ga.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.19.0-GA/javassist-3.19.0-GA.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:jackson:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/jackson/0.9.1/jackson-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-api:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-api/0.9.1/nd4j-api-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-base64:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-base64/0.9.1/nd4j-base64-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-buffer:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-buffer/0.9.1/nd4j-buffer-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-common:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-common/0.9.1/nd4j-common-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-context:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-context/0.9.1/nd4j-context-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-jackson:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-jackson/0.9.1/nd4j-jackson-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-native-api:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-native-api/0.9.1/nd4j-native-api-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-native-platform:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-native-platform/0.9.1/nd4j-native-platform-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-native:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-native/0.9.1/nd4j-native-0.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-native:android-arm:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-native/0.9.1/nd4j-native-0.9.1-android-arm.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-native:android-x86:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-native/0.9.1/nd4j-native-0.9.1-android-x86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-native:linux-ppc64le:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-native/0.9.1/nd4j-native-0.9.1-linux-ppc64le.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-native:linux-x86_64:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-native/0.9.1/nd4j-native-0.9.1-linux-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-native:macosx-x86_64:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-native/0.9.1/nd4j-native-0.9.1-macosx-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.nd4j:nd4j-native:windows-x86_64:0.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/nd4j/nd4j-native/0.9.1/nd4j-native-0.9.1-windows-x86_64.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.projectlombok:lombok:1.16.16.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/projectlombok/lombok/1.16.16/lombok-1.16.16.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.reflections:reflections:0.9.10.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/reflections/reflections/0.9.10/reflections-0.9.10.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:slf4j-api:1.7.12.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.tukaani:xz:1.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/tukaani/xz/1.5/xz-1.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.yaml:snakeyaml:1.12.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/yaml/snakeyaml/1.12/snakeyaml-1.12.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="forms-*.jar"/>
+    </fileset>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/module_combackloudtext2emoji.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.combackloudtext2emoji" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.combackloudtext2emoji" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>
