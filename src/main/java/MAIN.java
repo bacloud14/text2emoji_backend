@@ -12,15 +12,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.io.ClassPathResource;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class MAIN {
@@ -42,6 +39,7 @@ public class MAIN {
         WordVectors wordVectors = WordVectorSerializer.loadTxtVectors(new File(glovePath));
 //        WordVectorSerializer.writeWordVectors(wordVectors.lookupTable(), "wow.model");
         Collection<String> lst_ = wordVectors.wordsNearest("day", 10);
+
         System.out.println(Arrays.toString(lst_.toArray()));
 
 
@@ -58,7 +56,7 @@ public class MAIN {
                 JSONArray keywords = (JSONArray) jsonobject.get("keywords");
                 String row2 = "";
                 for (int j = 0; j < keywords.size(); j++) {
-                    row2 = row2 + " "+ keywords.get(j);
+                    row2 = row2 + " " + keywords.get(j);
                 }
                 row[2] = row2;
                 rows.add(row);
@@ -66,13 +64,63 @@ public class MAIN {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        for (String[] r:rows
-             ) {
-            System.out.println(r[2]);
-            Collection<String> lst_2 = wordVectors.wordsNearest(r[2], 10);
-            System.out.println(Arrays.toString(lst_2.toArray()));
-            break;
+        ArrayList<Collection<String>> emojisVectors = new ArrayList();
+//        int idxBackSpace = 0;
+//        for (String[] r : rows) {
+//            idxBackSpace++;
+//            if (idxBackSpace % 100 == 0)
+//                System.out.println(".");
+//            else
+//                System.out.print(".");
+//
+//            Collection<String> lst_2 = wordVectors.wordsNearest(
+////                    Arrays.asList("hello world".split(" ")),
+//                    Arrays.asList(r[2].trim().split(" ")),
+//                    Arrays.asList("the"),
+//                    5
+//            );
+//            emojisVectors.add(lst_2);
+//        }
+//        try
+//        {
+//            FileOutputStream fos = new FileOutputStream("listData");
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            oos.writeObject(emojisVectors);
+//            oos.close();
+//            fos.close();
+//        }
+//        catch (IOException ioe)
+//        {
+//            ioe.printStackTrace();
+//        }
+
+
+
+        try
+        {
+            FileInputStream fis = new FileInputStream("listData");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            emojisVectors = (ArrayList<Collection<String>>) ois.readObject();
+
+            ois.close();
+            fis.close();
         }
+        catch (IOException ioe)
+        {
+            ioe.printStackTrace();
+            return;
+        }
+        catch (ClassNotFoundException c)
+        {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return;
+        }
+
+
+
+        similarity("hello happy world peace together", emojisVectors, wordVectors);
 
 //        Word2Vec vec = new Word2Vec.Builder()
 //                .minWordFrequency(5)
@@ -92,4 +140,43 @@ public class MAIN {
 //        System.out.println(lst);
     }
 
+    private static void similarity(String sentence, ArrayList<Collection<String>> emojisVectors, WordVectors wordVectors) {
+
+        Collection<String> lst = wordVectors.wordsNearest(
+                Arrays.asList(sentence.split(" ")),
+                Arrays.asList("the"),
+                5
+        );
+        System.out.print(lst);
+        double max = 0;
+        Collection<String> bestEmojiVector = emojisVectors.get(0);
+        for (Collection<String> emojiVector : emojisVectors) { // reference vectors to compare to // out one vector
+            double innerSum = 0;
+            for (String keyWord : emojiVector) { // one emoji vector to compare to
+                for (String queryWord : lst) {
+                    innerSum += wordVectors.similarity(keyWord, queryWord);
+                }
+                if (innerSum > max) {
+                    max = innerSum;
+                    bestEmojiVector = emojiVector;
+                }
+                innerSum = 0;
+            }
+        }
+        System.out.println("max: " + max);
+        System.out.print("bestEmojiVector: " + bestEmojiVector.toString());
+    }
+
+
+    public static double cosineSimilarity(double[] vectorA, double[] vectorB) {
+        double dotProduct = 0.0;
+        double normA = 0.0;
+        double normB = 0.0;
+        for (int i = 0; i < vectorA.length; i++) {
+            dotProduct += vectorA[i] * vectorB[i];
+            normA += Math.pow(vectorA[i], 2);
+            normB += Math.pow(vectorB[i], 2);
+        }
+        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+    }
 }
