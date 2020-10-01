@@ -61,10 +61,11 @@ public class MAIN {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Runtime.getRuntime().gc();
         ArrayList<Collection<String>> emojisVectors = new ArrayList();
 //        Word2Vec vec = new Word2Vec.Builder()
-//                .minWordFrequency(10)
-//                .layerSize(64)
+//                .minWordFrequency(5)
+//                .layerSize(100)
 //                .windowSize(5)
 //                .iterate(iter)
 //                .tokenizerFactory(t)
@@ -74,15 +75,10 @@ public class MAIN {
 //        LOGGER.info("Fitting Word2Vec model....");
 //        vec.fit();
 //
-//        WordVectorSerializer.writeWordVectors(vec, "pathToWriteto.txt");
+//        WordVectorSerializer.writeWord2VecModel(vec, "pathToWriteto.txt");
 
-        String cached_model = new ClassPathResource("pathToWriteto.txt").getFile().getAbsolutePath();
-        Word2Vec vec = WordVectorSerializer.readWord2Vec(new File("pathToWriteto.txt"));
+        Word2Vec vec = WordVectorSerializer.readWord2VecModel(new File("pathToWriteto.txt"));
 
-        //        WordVectorSerializer.readWord2Vec()
-        LOGGER.info("Closest Words:");
-        Collection<String> lst = vec.wordsNearest("happy world", 5);
-        System.out.println(lst);
 
         int idxBackSpace = 0;
         for (String[] r : rows) {
@@ -93,7 +89,7 @@ public class MAIN {
             } else
                 System.out.print(".");
 
-            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), 1);
+            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), 3);
             emojisVectors.add(lst_2);
         }
         System.out.println(".");
