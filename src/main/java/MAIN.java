@@ -1,3 +1,4 @@
+import com.google.common.base.Splitter;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
 import org.deeplearning4j.models.word2vec.Word2Vec;
@@ -15,6 +16,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import org.nd4j.linalg.io.ClassPathResource;
+import org.nd4j.linalg.ops.transforms.Transforms;
 
 import java.io.*;
 
@@ -83,9 +85,10 @@ public class MAIN {
         int idxBackSpace = 0;
         for (String[] r : rows) {
             idxBackSpace++;
-            if (idxBackSpace % 100 == 0) {
+            if (idxBackSpace % 100 == 50) {
                 System.out.println(".");
                 System.out.println(r[2]);
+                break;
             } else
                 System.out.print(".");
 
@@ -94,6 +97,8 @@ public class MAIN {
         }
         System.out.println(".");
         System.out.println(emojisVectors);
+        double res = cosineSimForSentence(vec, "amphipod ants carnivore", "pine willow mountain");
+        System.out.println(res);
 //        int idxBackSpace = 0;
 //        for (String[] r : rows) {
 //            idxBackSpace++;
@@ -152,7 +157,18 @@ public class MAIN {
 
 
     }
+    public static double cosineSimForSentence(Word2Vec vector, String sentence1, String sentence2){
+        Collection<String> label1 = Splitter.on(' ').splitToList(sentence1);
+        Collection<String> label2 = Splitter.on(' ').splitToList(sentence2);
+        try{
+            return Transforms.cosineSim(vector.getWordVectorsMean(label1), vector.getWordVectorsMean(label2));
+        }catch(Exception e){
+            String exceptionMessage = e.getMessage();
+            System.out.print(exceptionMessage);
+        }
+        return Transforms.cosineSim(vector.getWordVectorsMean(label1), vector.getWordVectorsMean(label2));
 
+    }
     private static void similarity(String sentence, ArrayList<Collection<String>> emojisVectors, WordVectors wordVectors) {
 
         Collection<String> lst = wordVectors.wordsNearest(
