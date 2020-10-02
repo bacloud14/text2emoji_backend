@@ -26,6 +26,8 @@ import java.util.logging.Logger;
 public class MAIN {
     public static String text = "Marie was born in Paris.";
     private final static Logger LOGGER = Logger.getLogger(MAIN.class.getName());
+    private final static int ngrams = 2;
+    private final static int topNearest = 2;
 
     public static void main(String[] args) throws IOException {
         String filePath = new ClassPathResource("xaa").getFile().getAbsolutePath();
@@ -36,7 +38,7 @@ public class MAIN {
         SentenceIterator iter = new BasicLineIterator(filePath);
 
         // Split on white spaces in the line to get words
-        TokenizerFactory t = new NGramTokenizerFactory(new DefaultTokenizerFactory(), 1, 3); //new DefaultTokenizerFactory();
+        TokenizerFactory t = new NGramTokenizerFactory(new DefaultTokenizerFactory(), 1, ngrams); //new DefaultTokenizerFactory();
         t.setTokenPreProcessor(new CommonPreprocessor());
 
 
@@ -65,37 +67,37 @@ public class MAIN {
         }
         Runtime.getRuntime().gc();
         ArrayList<Collection<String>> emojisVectors = new ArrayList();
-//        Word2Vec vec = new Word2Vec.Builder()
-//                .minWordFrequency(5)
-//                .layerSize(100)
-//                .windowSize(5)
-//                .iterate(iter)
-//                .tokenizerFactory(t)
-//                .build();
-//
-//        Runtime.getRuntime().gc();
-//        LOGGER.info("Fitting Word2Vec model....");
-//        vec.fit();
-//
-//        WordVectorSerializer.writeWord2VecModel(vec, "pathToWriteto.txt");
+        Word2Vec vec = new Word2Vec.Builder()
+                .minWordFrequency(5)
+                .layerSize(100)
+                .windowSize(5)
+                .iterate(iter)
+                .tokenizerFactory(t)
+                .build();
 
-        Word2Vec vec = WordVectorSerializer.readWord2VecModel(new File("pathToWriteto.txt"));
+        Runtime.getRuntime().gc();
+        LOGGER.info("Fitting Word2Vec model....");
+        vec.fit();
+
+        WordVectorSerializer.writeWord2VecModel(vec, "pathToWriteto.txt");
+
+//        Word2Vec vec = WordVectorSerializer.readWord2VecModel(new File("pathToWriteto.txt"));
 
 
-//        int idxBackSpace = 0;
-//        for (String[] r : rows) {
-//            idxBackSpace++;
-//            if (idxBackSpace % 100 == 50) {
-//                System.out.println(".");
-//                System.out.println(r[2]);
-//            } else
-//                System.out.print(".");
-//
-//            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), 3);
-//            emojisVectors.add(lst_2);
-//        }
-//        System.out.println(".");
-//        System.out.println(emojisVectors);
+        int idxBackSpace = 0;
+        for (String[] r : rows) {
+            idxBackSpace++;
+            if (idxBackSpace % 100 == 50) {
+                System.out.println(".");
+                System.out.println(r[2]);
+            } else
+                System.out.print(".");
+
+            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), topNearest);
+            emojisVectors.add(lst_2);
+        }
+        System.out.println(".");
+        System.out.println(emojisVectors);
 //
 //
 //        try {
@@ -109,23 +111,23 @@ public class MAIN {
 //        }
 
 
-        try {
-            FileInputStream fis = new FileInputStream("emojisVectors");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            emojisVectors = (ArrayList<Collection<String>>) ois.readObject();
-
-            ois.close();
-            fis.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return;
-        } catch (ClassNotFoundException c) {
-            System.out.println("Class not found");
-            c.printStackTrace();
-            return;
-        }
-
+//        try {
+//            FileInputStream fis = new FileInputStream("emojisVectors");
+//            ObjectInputStream ois = new ObjectInputStream(fis);
+//
+//            emojisVectors = (ArrayList<Collection<String>>) ois.readObject();
+//
+//            ois.close();
+//            fis.close();
+//        } catch (IOException ioe) {
+//            ioe.printStackTrace();
+//            return;
+//        } catch (ClassNotFoundException c) {
+//            System.out.println("Class not found");
+//            c.printStackTrace();
+//            return;
+//        }
+        check(vec, emojisVectors, rows, "star");
         check(vec, emojisVectors, rows, "nice people");
         check(vec, emojisVectors, rows, "black man");
         check(vec, emojisVectors, rows, "very excited");
@@ -134,7 +136,10 @@ public class MAIN {
     }
 
     private static void check(Word2Vec vec, ArrayList<Collection<String>> emojisVectors, ArrayList<String[]> rows, String sentence) {
-        System.out.println("\n\nSentence: "+sentence);
+        System.out.println("\n\nSentence: " + sentence);
+        String sentence_ = String.join(" ", vec.wordsNearest(sentence.trim(), topNearest));
+        if (sentence_.equals(""))
+            sentence_ = sentence;
         double max = 0;
         int idx = -1;
         int det = -1;
@@ -143,7 +148,7 @@ public class MAIN {
             idx++;
             if (emojiVector.isEmpty())
                 continue;
-            double score = cosineSimForSentence(vec, String.join(" ", emojiVector), sentence);
+            double score = cosineSimForSentence(vec, String.join(" ", emojiVector), sentence_);
             if (score > max) {
                 max = score;
                 bestEmojiVector = emojiVector;
@@ -171,43 +176,4 @@ public class MAIN {
 
     }
 
-    private static void similarity(String sentence, ArrayList<Collection<String>> emojisVectors, WordVectors wordVectors) {
-
-        Collection<String> lst = wordVectors.wordsNearest(
-                Arrays.asList(sentence.split(" ")),
-                Arrays.asList("the"),
-                5
-        );
-        System.out.print(lst);
-        double max = 0;
-        Collection<String> bestEmojiVector = emojisVectors.get(0);
-        for (Collection<String> emojiVector : emojisVectors) { // reference vectors to compare to // out one vector
-            double innerSum = 0;
-            for (String keyWord : emojiVector) { // one emoji vector to compare to
-                for (String queryWord : lst) {
-                    innerSum += wordVectors.similarity(keyWord, queryWord);
-                }
-                if (innerSum > max) {
-                    max = innerSum;
-                    bestEmojiVector = emojiVector;
-                }
-                innerSum = 0;
-            }
-        }
-        System.out.println("max: " + max);
-        System.out.print("bestEmojiVector: " + bestEmojiVector.toString());
-    }
-
-
-    public static double cosineSimilarity(double[] vectorA, double[] vectorB) {
-        double dotProduct = 0.0;
-        double normA = 0.0;
-        double normB = 0.0;
-        for (int i = 0; i < vectorA.length; i++) {
-            dotProduct += vectorA[i] * vectorB[i];
-            normA += Math.pow(vectorA[i], 2);
-            normB += Math.pow(vectorB[i], 2);
-        }
-        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-    }
 }
