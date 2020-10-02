@@ -82,93 +82,93 @@ public class MAIN {
         Word2Vec vec = WordVectorSerializer.readWord2VecModel(new File("pathToWriteto.txt"));
 
 
-        int idxBackSpace = 0;
-        for (String[] r : rows) {
-            idxBackSpace++;
-            if (idxBackSpace % 100 == 50) {
-                System.out.println(".");
-                System.out.println(r[2]);
-                break;
-            } else
-                System.out.print(".");
-
-            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), 3);
-            emojisVectors.add(lst_2);
-        }
-        System.out.println(".");
-        System.out.println(emojisVectors);
-        double res = cosineSimForSentence(vec, "amphipod ants carnivore", "pine willow mountain");
-        System.out.println(res);
 //        int idxBackSpace = 0;
 //        for (String[] r : rows) {
 //            idxBackSpace++;
-//            if (idxBackSpace % 100 == 0)
+//            if (idxBackSpace % 100 == 50) {
 //                System.out.println(".");
-//            else
+//                System.out.println(r[2]);
+//            } else
 //                System.out.print(".");
 //
-//            Collection<String> lst_2 = wordVectors.wordsNearest(
-////                    Arrays.asList("hello world".split(" ")),
-//                    Arrays.asList(r[2].trim().split(" ")),
-//                    Arrays.asList("the"),
-//                    5
-//            );
+//            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), 3);
 //            emojisVectors.add(lst_2);
 //        }
-//        try
-//        {
-//            FileOutputStream fos = new FileOutputStream("listData");
+//        System.out.println(".");
+//        System.out.println(emojisVectors);
+//
+//
+//        try {
+//            FileOutputStream fos = new FileOutputStream("emojisVectors");
 //            ObjectOutputStream oos = new ObjectOutputStream(fos);
 //            oos.writeObject(emojisVectors);
 //            oos.close();
 //            fos.close();
-//        }
-//        catch (IOException ioe)
-//        {
+//        } catch (IOException ioe) {
 //            ioe.printStackTrace();
 //        }
 
 
-//        try
-//        {
-//            FileInputStream fis = new FileInputStream("listData");
-//            ObjectInputStream ois = new ObjectInputStream(fis);
-//
-//            emojisVectors = (ArrayList<Collection<String>>) ois.readObject();
-//
-//            ois.close();
-//            fis.close();
-//        }
-//        catch (IOException ioe)
-//        {
-//            ioe.printStackTrace();
-//            return;
-//        }
-//        catch (ClassNotFoundException c)
-//        {
-//            System.out.println("Class not found");
-//            c.printStackTrace();
-//            return;
-//        }
-//
-//
-//
-//        similarity("hello happy world peace together", emojisVectors, wordVectors);
+        try {
+            FileInputStream fis = new FileInputStream("emojisVectors");
+            ObjectInputStream ois = new ObjectInputStream(fis);
 
+            emojisVectors = (ArrayList<Collection<String>>) ois.readObject();
+
+            ois.close();
+            fis.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return;
+        }
+
+        check(vec, emojisVectors, rows, "nice people");
+        check(vec, emojisVectors, rows, "black man");
+        check(vec, emojisVectors, rows, "very excited");
+        check(vec, emojisVectors, rows, "skateboard snow");
 
     }
-    public static double cosineSimForSentence(Word2Vec vector, String sentence1, String sentence2){
+
+    private static void check(Word2Vec vec, ArrayList<Collection<String>> emojisVectors, ArrayList<String[]> rows, String sentence) {
+        System.out.println("\nSentence: "+sentence);
+        double max = 0;
+        int idx = -1;
+        Collection<String> bestEmojiVector = emojisVectors.get(0);
+        for (Collection<String> emojiVector : emojisVectors) {
+            idx++;
+            if (emojiVector.isEmpty())
+                continue;
+            double score = cosineSimForSentence(vec, String.join(" ", emojiVector), sentence);
+            if (score > max) {
+                max = score;
+                bestEmojiVector = emojiVector;
+            }
+
+        }
+        System.out.println("\nidx " + idx);
+        System.out.println("bestEmojiVector " + bestEmojiVector.toString());
+        System.out.print("row " + Arrays.toString(rows.get(idx)));
+        System.out.print("max " + max);
+
+    }
+
+    public static double cosineSimForSentence(Word2Vec vector, String sentence1, String sentence2) {
         Collection<String> label1 = Splitter.on(' ').splitToList(sentence1);
         Collection<String> label2 = Splitter.on(' ').splitToList(sentence2);
-        try{
+        try {
             return Transforms.cosineSim(vector.getWordVectorsMean(label1), vector.getWordVectorsMean(label2));
-        }catch(Exception e){
+        } catch (Exception e) {
             String exceptionMessage = e.getMessage();
             System.out.print(exceptionMessage);
         }
         return Transforms.cosineSim(vector.getWordVectorsMean(label1), vector.getWordVectorsMean(label2));
 
     }
+
     private static void similarity(String sentence, ArrayList<Collection<String>> emojisVectors, WordVectors wordVectors) {
 
         Collection<String> lst = wordVectors.wordsNearest(
