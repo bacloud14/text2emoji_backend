@@ -134,9 +134,10 @@ public class MAIN {
     }
 
     private static void check(Word2Vec vec, ArrayList<Collection<String>> emojisVectors, ArrayList<String[]> rows, String sentence) {
-        System.out.println("\nSentence: "+sentence);
+        System.out.println("\n\nSentence: "+sentence);
         double max = 0;
         int idx = -1;
+        int det = -1;
         Collection<String> bestEmojiVector = emojisVectors.get(0);
         for (Collection<String> emojiVector : emojisVectors) {
             idx++;
@@ -146,12 +147,13 @@ public class MAIN {
             if (score > max) {
                 max = score;
                 bestEmojiVector = emojiVector;
+                det = idx;
             }
 
         }
-        System.out.println("\nidx " + idx);
+        System.out.println("det " + det);
         System.out.println("bestEmojiVector " + bestEmojiVector.toString());
-        System.out.print("row " + Arrays.toString(rows.get(idx)));
+        System.out.print("row " + Arrays.toString(rows.get(det)));
         System.out.print("max " + max);
 
     }
