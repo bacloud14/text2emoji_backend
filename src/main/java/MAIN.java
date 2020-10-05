@@ -1,6 +1,5 @@
 import com.google.common.base.Splitter;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
-import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 
 import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
@@ -24,12 +23,23 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class MAIN {
-    public static String text = "Marie was born in Paris.";
     private final static Logger LOGGER = Logger.getLogger(MAIN.class.getName());
-    private final static int ngrams = 2;
-    private final static int topNearest = 2;
+    private final static int ngrams = 3;
+    private final static int topNearest = 3;
 
+    public static ArrayList<String> readStopWords(String path) throws FileNotFoundException {
+        Scanner s = new Scanner(new File(path));
+        ArrayList<String> list = new ArrayList<String>();
+        while (s.hasNext()){
+            list.add(s.next());
+        }
+        s.close();
+
+        return list;
+    }
     public static void main(String[] args) throws IOException {
+        String stopWordsPath = new ClassPathResource("stopwords.txt").getFile().getAbsolutePath();
+        ArrayList<String> stopWords = readStopWords(stopWordsPath);
         String filePath = new ClassPathResource("xaa").getFile().getAbsolutePath();
         String emojisPath = new ClassPathResource("emojis.json").getFile().getAbsolutePath();
 
@@ -38,8 +48,8 @@ public class MAIN {
         SentenceIterator iter = new BasicLineIterator(filePath);
 
         // Split on white spaces in the line to get words
-        TokenizerFactory t = new NGramTokenizerFactory(new DefaultTokenizerFactory(), 1, ngrams); //new DefaultTokenizerFactory();
-        t.setTokenPreProcessor(new CommonPreprocessor());
+        TokenizerFactory biTokenizer = new NGramTokenizerFactory(new DefaultTokenizerFactory(), 1, ngrams); //new DefaultTokenizerFactory();
+        biTokenizer.setTokenPreProcessor(new CommonPreprocessor());
 
 
         Runtime.getRuntime().gc();
@@ -68,20 +78,22 @@ public class MAIN {
         Runtime.getRuntime().gc();
         ArrayList<Collection<String>> emojisVectors = new ArrayList();
         Word2Vec vec = new Word2Vec.Builder()
+                .stopWords(stopWords)
                 .minWordFrequency(5)
+                .iterations(3)
                 .layerSize(100)
                 .windowSize(5)
                 .iterate(iter)
-                .tokenizerFactory(t)
+                .tokenizerFactory(biTokenizer)
                 .build();
 
         Runtime.getRuntime().gc();
         LOGGER.info("Fitting Word2Vec model....");
         vec.fit();
 
-        WordVectorSerializer.writeWord2VecModel(vec, "pathToWriteto.txt");
+        WordVectorSerializer.writeWord2VecModel(vec, "model");
 
-//        Word2Vec vec = WordVectorSerializer.readWord2VecModel(new File("pathToWriteto.txt"));
+//        Word2Vec vec = WordVectorSerializer.readWord2VecModel(new File("model"));
 
 
         int idxBackSpace = 0;
@@ -92,8 +104,12 @@ public class MAIN {
                 System.out.println(r[2]);
             } else
                 System.out.print(".");
-
-            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), topNearest);
+            // pick keywords or names
+            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), 1);
+            if(lst_2.isEmpty()){
+                String name = r[0].toLowerCase().replaceAll("[^A-Za-z]+", "");
+                lst_2 = vec.wordsNearest(name, 1);
+            }
             emojisVectors.add(lst_2);
         }
         System.out.println(".");
@@ -137,7 +153,7 @@ public class MAIN {
 
     private static void check(Word2Vec vec, ArrayList<Collection<String>> emojisVectors, ArrayList<String[]> rows, String sentence) {
         System.out.println("\n\nSentence: " + sentence);
-        String sentence_ = String.join(" ", vec.wordsNearest(sentence.trim(), topNearest));
+        String sentence_ = String.join(" ", vec.wordsNearest(sentence.trim(), 1));
         if (sentence_.equals(""))
             sentence_ = sentence;
         double max = 0;
