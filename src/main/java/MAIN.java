@@ -30,13 +30,14 @@ public class MAIN {
     public static ArrayList<String> readStopWords(String path) throws FileNotFoundException {
         Scanner s = new Scanner(new File(path));
         ArrayList<String> list = new ArrayList<String>();
-        while (s.hasNext()){
+        while (s.hasNext()) {
             list.add(s.next());
         }
         s.close();
 
         return list;
     }
+
     public static void main(String[] args) throws IOException {
         String stopWordsPath = new ClassPathResource("stopwords.txt").getFile().getAbsolutePath();
         ArrayList<String> stopWords = readStopWords(stopWordsPath);
@@ -61,15 +62,19 @@ public class MAIN {
 
             for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject jsonobject = (JSONObject) jsonArray.get(i);
-                String[] row = new String[3];
+                String[] row = new String[4];
                 row[0] = (String) jsonobject.get("name");
                 row[1] = (String) jsonobject.get("unicode");
+                String category = (String) jsonobject.get("category");
+                if (category == null) category = "other";
                 JSONArray keywords = (JSONArray) jsonobject.get("keywords");
                 String row2 = "";
                 for (int j = 0; j < keywords.size(); j++) {
                     row2 = row2 + " " + keywords.get(j);
                 }
                 row[2] = row2;
+                row[3] = category;
+
                 rows.add(row);
             }
         } catch (ParseException e) {
@@ -105,10 +110,10 @@ public class MAIN {
             } else
                 System.out.print(".");
             // pick keywords or names
-            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), 1);
-            if(lst_2.isEmpty()){
+            Collection<String> lst_2 = vec.wordsNearest(r[2].trim(), 3);
+            if (lst_2.isEmpty()) {
                 String name = r[0].toLowerCase().replaceAll("[^A-Za-z]+", "");
-                lst_2 = vec.wordsNearest(name, 1);
+                lst_2 = vec.wordsNearest(name, 2);
             }
             emojisVectors.add(lst_2);
         }
